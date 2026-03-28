@@ -1,6 +1,10 @@
+import os
+from dotenv import load_dotenv
 from groq import Groq
 
-client = Groq(api_key="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")
+load_dotenv()
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def get_response(messages):
     response = client.chat.completions.create(
