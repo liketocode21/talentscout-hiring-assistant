@@ -63,31 +63,6 @@ with col3:
 
 st.markdown("---")
 
-# ------------------ LANGUAGE SELECTION ------------------ #
-if "language_selected" not in st.session_state:
-    st.session_state.language_selected = False
-
-if not st.session_state.language_selected:
-
-    st.markdown("## 🌍 Select Your Preferred Language")
-
-    language = st.selectbox(
-        "Choose language",
-        ["English", "हिन्दी", "Spanish", "French", "German"]
-    )
-
-    if st.button("Continue"):
-        st.session_state.language = language
-        st.session_state.language_selected = True
-
-        st.session_state.messages = [
-            {"role": "system", "content": get_system_prompt(st.session_state.language)}
-        ]
-
-        st.rerun()
-
-    st.stop()
-
 # ------------------ SESSION STATE ------------------ #
 if "messages" not in st.session_state:
     st.session_state.messages = [
