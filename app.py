@@ -33,14 +33,15 @@ with st.sidebar:
     ✔ AI Screening  
     ✔ Skill Analysis  
     ✔ Company Matching  
-    ✔ Multilingual Support  
+    ✔ Smart Recommendations  
     """)
 
     st.markdown("---")
 
     if st.button("🔄 Start New Session"):
-        st.session_state.language_selected = False
-        st.session_state.messages = []
+        st.session_state.messages = [
+            {"role": "system", "content": get_system_prompt()}
+        ]
         st.rerun()
 
 # ------------------ HEADER ------------------ #
@@ -63,6 +64,12 @@ with col3:
 
 st.markdown("---")
 
+# ------------------ SESSION STATE ------------------ #
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        {"role": "system", "content": get_system_prompt()}
+    ]
+
 # ------------------ CHAT DISPLAY ------------------ #
 for msg in st.session_state.messages[1:]:
     with st.chat_message(msg["role"]):
@@ -77,9 +84,10 @@ if user_input:
     if user_input.lower() in ["exit", "quit", "bye"]:
         st.success("✅ Thank you for interacting with TalentScout!")
 
-        # Reset everything
-        st.session_state.language_selected = False
-        st.session_state.messages = []
+        # Reset chat
+        st.session_state.messages = [
+            {"role": "system", "content": get_system_prompt()}
+        ]
 
         st.rerun()
 
