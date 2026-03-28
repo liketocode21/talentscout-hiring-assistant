@@ -63,12 +63,6 @@ with col3:
 
 st.markdown("---")
 
-# ------------------ SESSION STATE ------------------ #
-if "messages" not in st.session_state:
-    st.session_state.messages = [
-        {"role": "system", "content": get_system_prompt(st.session_state.language)}
-    ]
-
 # ------------------ CHAT DISPLAY ------------------ #
 for msg in st.session_state.messages[1:]:
     with st.chat_message(msg["role"]):
